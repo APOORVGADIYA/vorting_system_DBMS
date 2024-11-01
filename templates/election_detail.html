@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dbms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Election Details</title>
+    <link
+      href="{{ url_for('static', filename='output.css') }}"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mx-auto p-4">
+      <div class="mb-6">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-ghost"
+          >&larr; Back to Dashboard</a
+        >
+      </div>
+
+      <h1 class="text-2xl font-bold mb-4">{{ election.title }}</h1>
+      <p class="mb-6">{{ election.description }}</p>
+
+      {% if not user_vote %}
+      <form
+        action="{{ url_for('submit_vote', election_id=election.id) }}"
+        method="POST"
+        class="mb-6"
+      >
+        <div class="form-control">
+          <label class="label">Your Vote</label>
+          <select name="vote_choice" required class="select select-bordered">
+            <option value="">Select your choice</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">Submit Vote</button>
+      </form>
+      {% else %}
+      <div class="alert alert-info mb-6">
+        You voted: {{ user_vote.vote_choice }}
+      </div>
+      {% endif %}
+
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title">Results</h2>
+          {% for vote in votes %}
+          <div class="flex justify-between items-center">
+            <span class="capitalize">{{ vote.vote_choice }}</span>
+            <span class="font-bold">{{ vote.count }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

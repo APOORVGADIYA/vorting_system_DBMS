@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dbms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authentication</title>
+    <link
+      href="{{ url_for('static', filename='output.css') }}"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mx-auto p-4">
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in messages %}
+      <div class="alert alert-info shadow-lg">
+        <div>
+          <span>{{ message }}</span>
+        </div>
+      </div>
+      {% endfor %} {% endif %} {% endwith %}
+    </div>
+    <!-- Login Section -->
+    <div class="hero min-h-screen bg-base-100" id="loginSection">
+      <div class="hero-content flex-col lg:flex-row-reverse">
+        <div class="text-center lg:text-left">
+          <h1 class="text-5xl font-bold">Login now!</h1>
+          <p class="py-6">Welcome back! Please login to access your account.</p>
+        </div>
+        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <form class="card-body" method="POST" action="/login">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="email"
+                class="input input-bordered"
+                required
+              />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="password"
+                class="input input-bordered"
+                required
+              />
+            </div>
+            <div class="form-control mt-6">
+              <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            <div class="text-center mt-2">
+              <a href="#" class="link link-primary" onclick="toggleForms()"
+                >Need an account? Sign up</a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signup Section -->
+    <div class="hero min-h-screen bg-base-100 hidden" id="signupSection">
+      <div class="hero-content flex-col lg:flex-row-reverse">
+        <div class="text-center lg:text-left">
+          <h1 class="text-5xl font-bold">Sign up now!</h1>
+          <p class="py-6">Create your account to get started.</p>
+        </div>
+        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <form class="card-body" method="POST" action="/signup">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="email"
+                class="input input-bordered"
+                required
+              />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="password"
+                class="input input-bordered"
+                required
+              />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Confirm Password</span>
+              </label>
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="confirm password"
+                class="input input-bordered"
+                required
+              />
+            </div>
+            <div class="form-control mt-6">
+              <button type="submit" class="btn btn-primary">Sign up</button>
+            </div>
+            <div class="text-center mt-2">
+              <a href="#" class="link link-primary" onclick="toggleForms()"
+                >Already have an account? Login</a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleForms() {
+        const loginSection = document.getElementById("loginSection");
+        const signupSection = document.getElementById("signupSection");
+        loginSection.classList.toggle("hidden");
+        signupSection.classList.toggle("hidden");
+      }
+    </script>
+  </body>
+</html>
